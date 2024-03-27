@@ -1,3 +1,27 @@
+/* AoE2 Underground - Winter Crown Slapdown */
+/* Lowland */
+/* Updated by Hestia for more consistent lurable spawn */
+
+<PLAYER_SETUP>
+
+/* Sling nerfs */
+#const MOD_RESOURCE 1
+#const ATTR_SET_TIME -1
+#const TRIBUTE_INEFFICIENCY 46
+#const COINAGE 23
+effect_percent MOD_RESOURCE TRIBUTE_INEFFICIENCY ATTR_SET 200
+effect_amount MODIFY_TECH COINAGE ATTR_SET_TIME 180
+
+/* Boar lame nerf, boar does a little over 1/3 scout hp on hit now */
+/* Scouts expected to have <1/3 hp left after lame (hit twice) */
+#const BOAR 48
+#const ATTR_ATTACK 9
+effect_amount SET_ATTRIBUTE BOAR ATTR_ATTACK 7434 /* 29 - eagles */
+effect_amount SET_ATTRIBUTE BOAR ATTR_ATTACK 2058 /* 8 - cavalry */
+effect_amount SET_ATTRIBUTE BOAR ATTR_ATTACK 7698 /* 30 - camels */
+
+/* Map copy pasted (unfortunately) to edit some res spawns */
+
 /*
 
 	Lowland by Chrazini
@@ -19,6 +43,7 @@
 
 	#define THEME_ALPINE
 	#define COLLAPSE
+	/* #define RESOURCE_DIST */
 	/* #define DEBUG_MODE */
 	/* #define TERRAIN_DEBUGGING */
 
@@ -3735,7 +3760,7 @@ endif
 
 				avoid_actor_area 6010 /* Minimum Player Distance */
 
-				if DEBUG_MODE
+				if RESOURCE_DIST
 					second_object FLAG_A
 				endif
 			}
@@ -3771,7 +3796,7 @@ endif
 					avoid_actor_area 200 /* Castle */
 					avoid_actor_area 300 /* Monastery */
 
-					avoid_actor_area 5000 /* Resource Distributor */
+					/* avoid_actor_area 5000 Resource Distributor */
 					avoid_actor_area 5020 /* Map Edge */
 					avoid_actor_area 6010 /* Minimum Player Distance */
 				}
@@ -3829,7 +3854,7 @@ endif
 			{
 				set_place_for_every_player
 				set_gaia_object_only
-				number_of_objects 2
+				number_of_objects 3 /* 2->3 */
 				set_tight_grouping
 				group_placement_radius 1
 				find_closest
@@ -3855,7 +3880,7 @@ endif
 				avoid_actor_area 300 /* Monastery */
 				avoid_actor_area 700 /* Default Shrub Spacer */
 
-				avoid_actor_area 5000 /* Resource Distributor */
+				/* avoid_actor_area 5000 Resource Distributor */
 				avoid_actor_area 5020 /* Map Edge */
 				avoid_actor_area 6010 /* Minimum Player Distance */
 			}
@@ -3927,7 +3952,7 @@ endif
 
 				avoid_actor_area 6014 /* Minimum Player Distance */
 
-				if DEBUG_MODE
+				if RESOURCE_DIST
 					second_object FLAG_A
 				endif
 			}
@@ -3965,7 +3990,7 @@ endif
 				avoid_actor_area 700 /* Default Shrub Spacer */
 				avoid_actor_area 800 /* Default Primary Gold Spacer */
 
-				avoid_actor_area 5000 /* Resource Distributor */
+				/* avoid_actor_area 5000 Resource Distributor */
 				avoid_actor_area 5020 /* Map Edge */
 				avoid_actor_area 6014 /* Minimum Player Distance */
 			}
@@ -4037,7 +4062,7 @@ endif
 
 				avoid_actor_area 6016 /* Minimum Player Distance */
 
-				if DEBUG_MODE
+				if RESOURCE_DIST
 					second_object FLAG_A
 				endif
 			}
@@ -4047,7 +4072,7 @@ endif
 			{
 				set_place_for_every_player
 				set_gaia_object_only
-				number_of_objects 2
+				number_of_objects 3 /* 2->3 */
 				set_tight_grouping
 				group_placement_radius 1
 				find_closest
@@ -4077,7 +4102,7 @@ endif
 				avoid_actor_area 801 /* Far Primary Gold Spacer */
 				avoid_actor_area 900 /* Default Primary Stone Spacer */
 
-				avoid_actor_area 5000 /* Resource Distributor */
+				/* avoid_actor_area 5000 Resource Distributor */
 				avoid_actor_area 5020 /* Map Edge */
 				avoid_actor_area 6016 /* Minimum Player Distance */
 			}
@@ -4149,7 +4174,7 @@ endif
 
 				avoid_actor_area 6020 /* Minimum Player Distance */
 
-				if DEBUG_MODE
+				if RESOURCE_DIST
 					second_object FLAG_A
 				endif
 			}
@@ -4191,7 +4216,7 @@ endif
 				avoid_actor_area 810 /* Default Secondary Gold Divider */
 				avoid_actor_area 901 /* Far Stone Divider */
 
-				avoid_actor_area 5000 /* Resource Distributor */
+				/* avoid_actor_area 5000 Resource Distributor */
 				avoid_actor_area 5020 /* Map Edge */
 				avoid_actor_area 6020 /* Minimum Player Distance */
 			}
@@ -4441,9 +4466,9 @@ endif
 
 					avoid_actor_area 21 /* Far Herdable */
 
-					avoid_actor_area 5000 /* Resource Distributor */
+					/* avoid_actor_area 5000 Resource Distributor */
 					avoid_actor_area 5020 /* Map Edge */
-					avoid_actor_area 6022 /* Minimum Player Distance */
+					avoid_actor_area 6016 /* Minimum Player Distance */
 				}
 
 				if EW_DARK
@@ -4473,9 +4498,9 @@ endif
 
 						avoid_actor_area 21 /* Far Herdable */
 
-						avoid_actor_area 5000 /* Resource Distributor */
+						/* avoid_actor_area 5000 Resource Distributor */
 						avoid_actor_area 5020 /* Map Edge */
-						avoid_actor_area 6022 /* Minimum Player Distance */
+						avoid_actor_area 6016 /* Minimum Player Distance */
 					}
 				endif
 			endif
@@ -4514,10 +4539,10 @@ endif
 				avoid_actor_area 902 /* Minimum Primary Stone Divider */
 				avoid_actor_area 912 /* Minimum Secondary Stone Divider */
 
-				avoid_actor_area 5000 /* Resource Distributor */
+				/* avoid_actor_area 5000 Resource Distributor */
 				avoid_actor_area 5020 /* Map Edge */
 				avoid_actor_area 5030 /* Lureable Blocker */
-				avoid_actor_area 6014 /* Minimum Player Distance */
+				avoid_actor_area 6012 /* Minimum Player Distance */
 			}
 
 			create_object LUREABLE_A
@@ -4587,7 +4612,7 @@ endif
 				avoid_actor_area 902 /* Minimum Primary Stone Divider */
 				avoid_actor_area 912 /* Minimum Secondary Stone Divider */
 
-				avoid_actor_area 5000 /* Resource Distributor */
+				/* avoid_actor_area 5000 Resource Distributor */
 				avoid_actor_area 6016 /* Minimum Player Distance */
 			}
 

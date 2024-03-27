@@ -1,3 +1,26 @@
+/* AoE2 Underground - Winter Crown Slapdown */
+/* MadCADer Expanse */
+
+<PLAYER_SETUP>
+
+/* Sling nerfs */
+#const MOD_RESOURCE 1
+#const ATTR_SET_TIME -1
+#const TRIBUTE_INEFFICIENCY 46
+#const COINAGE 23
+effect_percent MOD_RESOURCE TRIBUTE_INEFFICIENCY ATTR_SET 200
+effect_amount MODIFY_TECH COINAGE ATTR_SET_TIME 180
+
+/* Boar lame nerf, boar does a little over 1/3 scout hp on hit now */
+/* Scouts expected to have <1/3 hp left after lame (hit twice) */
+#const BOAR 48
+#const ATTR_ATTACK 9
+effect_amount SET_ATTRIBUTE BOAR ATTR_ATTACK 7434 /* 29 - eagles */
+effect_amount SET_ATTRIBUTE BOAR ATTR_ATTACK 2058 /* 8 - cavalry */
+effect_amount SET_ATTRIBUTE BOAR ATTR_ATTACK 7698 /* 30 - camels */
+
+/* res spawns + distances adjusted, copy paste whole map */
+
 /* Expanse (9-30-20) by TheMadCADer */
 	
 <PLAYER_SETUP>
@@ -208,7 +231,7 @@ create_object GOLD /* primary */
 	set_tight_grouping
 	set_gaia_object_only
 	set_place_for_every_player
-	min_distance_to_players 11
+	min_distance_to_players 10
 	max_distance_to_players 12
 	min_distance_group_placement 7
 	temp_min_distance_group_placement 15
@@ -230,9 +253,8 @@ create_object STONE /* primary */
 }
 create_object GOLD /* extra */
 {
-	number_of_objects 4
-	number_of_groups 10
-	group_variance 1
+	number_of_objects 3
+	number_of_groups 12
 	set_tight_grouping
 	group_placement_radius 3
 	set_gaia_object_only
@@ -245,9 +267,8 @@ create_object GOLD /* extra */
 }
 create_object STONE /* extra */
 {
-	number_of_objects 4
-	number_of_groups 10
-	group_variance 1
+	number_of_objects 3
+	number_of_groups 8
 	set_tight_grouping
 	group_placement_radius 3
 	set_gaia_object_only
@@ -267,7 +288,7 @@ create_object FORAGE
 	set_tight_grouping
 	group_placement_radius 4
 	set_gaia_object_only
-	temp_min_distance_group_placement 20
+	temp_min_distance_group_placement 22
 	set_scaling_to_map_size
 	min_distance_to_players 22
 	avoid_actor_area 1
@@ -276,11 +297,11 @@ create_object FORAGE
 }
 create_object DEER
 {
-	number_of_objects 5
+	number_of_objects 3
 	number_of_groups 100
 	set_gaia_object_only
 	set_loose_grouping
-	temp_min_distance_group_placement 15
+	temp_min_distance_group_placement 22
 	set_scaling_to_map_size
 	min_distance_to_players 22
 	avoid_actor_area 1
@@ -288,8 +309,11 @@ create_object DEER
 endif
 create_object RELIC
 {
-	number_of_objects 5
-	min_distance_to_players 25
+	number_of_objects 1
+	min_distance_to_players 30
+	min_distance_to_map_edge 3
+	set_place_for_every_player
+	find_closest
 	set_gaia_object_only
 	temp_min_distance_group_placement 25
 }
@@ -297,5 +321,5 @@ create_object SHORE_FISH
 {
 	number_of_objects 100
 	set_scaling_to_map_size
-	temp_min_distance_group_placement 3
+	temp_min_distance_group_placement 6
 }
