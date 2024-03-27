@@ -1,6 +1,20 @@
 /* AoE2 Underground - Winter Crown Slapdown */
 /* MadCADer Frozen Cove */
 
+/* Updated by Hestia for reliable berries and deer spawn
+
+	 Sample seeds of bad spawn:
+	 624858053 (No berries)
+	 -1341128179 (No deer)
+	 -726080451 (No gold)
+
+	 Unusual terrain spawn:
+	 -1171148558 (Overly extended highland)
+*/
+
+/*#define DEBUG_MODE*/
+#const IBEX 1239
+
 <PLAYER_SETUP>
 
 /* Sling nerfs */
@@ -206,39 +220,29 @@ create_object SCOUT
 	min_distance_to_players 7
 	max_distance_to_players 9
 }
-/* Barracks - nah */
-/*
-create_object BARRACKS
-{
-set_place_for_every_player
-min_distance_to_players 8
-max_distance_to_players 14
-min_distance_group_placement 5
-}
-*/
 create_object GOLD /* primary */
 {
 	number_of_objects 7
-	group_placement_radius 3
+	group_placement_radius 2
 	set_tight_grouping
 	set_gaia_object_only
 	set_place_for_every_player
 	min_distance_to_players 10
 	max_distance_to_players 12
-	min_distance_group_placement 7
+	min_distance_group_placement 5
 	max_distance_to_other_zones 7
 	avoid_forest_zone 2
 }
 create_object STONE /* primary */
 {
 	number_of_objects 5
-	group_placement_radius 3
+	group_placement_radius 2
 	set_tight_grouping
 	set_gaia_object_only
 	set_place_for_every_player
 	min_distance_to_players 12
 	max_distance_to_players 15
-	min_distance_group_placement 7
+	min_distance_group_placement 5
 	max_distance_to_other_zones 7
 	avoid_forest_zone 2
 }
@@ -246,40 +250,41 @@ create_object GOLD /* secondary */
 {
 	number_of_objects 5
 	set_tight_grouping
-	group_placement_radius 3
+	group_placement_radius 1
 	set_place_for_every_player
 	set_gaia_object_only
 	min_distance_to_players 12
 	max_distance_to_players 15
-	min_distance_group_placement 7
-	max_distance_to_other_zones 7
-	avoid_forest_zone 1
+	min_distance_group_placement 5
+	max_distance_to_other_zones 4
+	avoid_forest_zone 2
 }
 create_object STONE /* secondary */
 {
 	number_of_objects 4
-	group_placement_radius 2
+	group_placement_radius 1
 	set_tight_grouping
 	set_gaia_object_only
 	set_place_for_every_player
 	min_distance_to_players 20
 	max_distance_to_players 26
-	min_distance_group_placement 7
-	max_distance_to_other_zones 7
-	avoid_forest_zone 1
+	set_circular_placement
+	min_distance_group_placement 5
+	max_distance_to_other_zones 4
+	avoid_forest_zone 2
 }
 create_object GOLD /* extra */
 {
 	number_of_objects 3
 	number_of_groups 5
 	set_tight_grouping
-	group_placement_radius 3
 	set_gaia_object_only
 	set_scaling_to_map_size
 	min_distance_group_placement 3
 	temp_min_distance_group_placement 20
 	min_distance_to_players 30
 	max_distance_to_other_zones 5
+	avoid_forest_zone 2
 	place_on_specific_land_id 1
 }
 create_object STONE /* extra */
@@ -287,13 +292,13 @@ create_object STONE /* extra */
 	number_of_objects 3
 	number_of_groups 2
 	set_tight_grouping
-	group_placement_radius 3
 	set_gaia_object_only
 	set_scaling_to_map_size
 	min_distance_group_placement 3
 	temp_min_distance_group_placement 20
 	min_distance_to_players 30
 	max_distance_to_other_zones 5
+	avoid_forest_zone 2
 	place_on_specific_land_id 1
 }
 if DEATH_MATCH
@@ -319,6 +324,16 @@ create_object SHEEP /* secondary */
 	max_distance_to_players 16
 	max_distance_to_other_zones 12
 }
+if DEBUG_MODE
+create_object FORAGE {
+	number_of_objects 9999
+	set_gaia_object_only
+	set_place_for_every_player
+	min_distance_to_players 10
+	max_distance_to_players 12
+	avoid_forest_zone 3
+}
+else
 create_object FORAGE
 {
 	number_of_objects 6
@@ -328,10 +343,10 @@ create_object FORAGE
 	set_place_for_every_player
 	min_distance_to_players 10
 	max_distance_to_players 12
-	max_distance_to_other_zones 7
 	min_distance_group_placement 4
 	avoid_forest_zone 3
 }
+endif
 create_object BOAR
 {
 	number_of_objects 2
@@ -339,24 +354,34 @@ create_object BOAR
 	set_gaia_object_only
 	min_distance_to_players 12
 	max_distance_to_players 14
-	set_circular_placement
 	max_distance_to_other_zones 3
-	set_circular_placement
 }
-create_object DEER
-{
-	number_of_objects 4
+if DEBUG_MODE
+create_object IBEX {
+	number_of_objects 9999
 	set_place_for_every_player
 	set_gaia_object_only
-	set_loose_grouping
+	min_distance_to_players 16
+	max_distance_to_players 20
+	set_circular_placement
+	avoid_forest_zone 2
+}
+else
+create_object IBEX
+{
+	number_of_objects 4
+	number_of_groups 1
+	set_place_for_every_player
+	set_gaia_object_only
 	group_placement_radius 2
 	min_distance_to_players 16
 	max_distance_to_players 20
-	max_distance_to_other_zones 2
-	min_distance_group_placement 4
-	avoid_forest_zone 2
 	set_circular_placement
+	temp_min_distance_group_placement 4
+	ignore_terrain_restrictions
+	avoid_forest_zone 2
 }
+endif
 create_object SNOW_PINE_TREE /* straggler trees */
 {
 	number_of_objects 2
