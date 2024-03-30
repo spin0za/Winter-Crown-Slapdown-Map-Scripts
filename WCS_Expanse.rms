@@ -1,6 +1,12 @@
 /* AoE2 Underground - Winter Crown Slapdown */
 /* MadCADer Expanse */
 
+/* Updated by Hestia for consistent farm spawn
+
+	 Sample seeds of unfair spawn:
+	 1737659692 (Red touches map edge)
+*/
+
 <PLAYER_SETUP>
 
 /* Sling nerfs */
@@ -34,7 +40,7 @@ create_player_lands
 	land_percent 0
 	base_size 2
 	base_elevation 5
-	circle_radius 40 7
+	circle_radius 38 2
 	other_zone_avoidance_distance 20
 }
 create_land
@@ -213,8 +219,8 @@ create_object FARM
 {
 	number_of_objects 8
 	set_place_for_every_player
-	min_distance_to_players 4
 	max_distance_to_players 4
+  	find_closest
 }
 create_object OUTPOST
 {
