@@ -1,6 +1,12 @@
 /* AoE2 Underground - Winter Crown Slapdown */
 /* Seize the Mountain */
 
+/* Updated by Hestia for fixed orientation */
+
+/*
+#define OG_SETUP
+*/
+
 <PLAYER_SETUP>
 
 /* Sling nerfs */
@@ -35,13 +41,18 @@ end_random
 #include_drs F_seasons.inc
 
 <PLAYER_SETUP>
-  grouped_by_team
+  if OG_SETUP
+    grouped_by_team
+  else
+    direct_placement
+  endif
   ai_info_map_type GHOST_LAKE 0 0 0
 
 <LAND_GENERATION>
 
 base_terrain LAYER_E
 
+if OG_SETUP
 create_player_lands 
 { 
 if PH_FROZEN
@@ -49,14 +60,164 @@ if PH_FROZEN
 else
   terrain_type                     LAYER_A
 endif
-  land_percent 			     8 /* originally 6 */
+  land_percent           8 /* originally 6 */
   base_size                          13 /* originally 12 */
-  circle_radius 		     46 0
+  circle_radius          46 0
   border_fuzziness                   15
   zone                               1
   other_zone_avoidance_distance      14
   clumping_factor                    15
 }
+else
+
+start_random
+  percent_chance 50 #define ORIENTATION_A
+  percent_chance 50 #define ORIENTATION_B
+end_random
+
+start_random
+  percent_chance 50 #define TEAM_1_ON_LEFT
+  percent_chance 50 #define TEAM_2_ON_LEFT
+end_random
+
+create_land /* Player Left 1 */
+{
+  terrain_type LAYER_A
+  land_percent 1
+  base_size 14
+  clumping_factor 15
+  border_fuzziness 15
+  zone 1
+  other_zone_avoidance_distance 14
+
+  if ORIENTATION_A
+    land_position 35 8
+  elseif ORIENTATION_B
+    land_position 8 35
+  endif
+
+  if TEAM_1_ON_LEFT
+    assign_to AT_TEAM 1 -1 0
+  elseif TEAM_2_ON_LEFT
+    assign_to AT_TEAM 2 -1 0
+  endif
+}
+
+create_land /* Player Left 2 */
+{
+  terrain_type LAYER_A
+  land_percent 1
+  base_size 14
+  clumping_factor 15
+  border_fuzziness 15
+  zone 1
+  other_zone_avoidance_distance 14
+
+  if ORIENTATION_A
+    land_position 50 8
+  elseif ORIENTATION_B
+    land_position 8 50
+  endif
+
+  if TEAM_1_ON_LEFT
+    assign_to AT_TEAM 1 -1 0
+  elseif TEAM_2_ON_LEFT
+    assign_to AT_TEAM 2 -1 0
+  endif
+}
+
+create_land /* Player Left 3 */
+{
+  terrain_type LAYER_A
+  land_percent 1
+  base_size 14
+  clumping_factor 15
+  border_fuzziness 15
+  zone 1
+  other_zone_avoidance_distance 14
+
+  if ORIENTATION_A
+    land_position 65 8
+  elseif ORIENTATION_B
+    land_position 8 65
+  endif
+
+  if TEAM_1_ON_LEFT
+    assign_to AT_TEAM 1 -1 0
+  elseif TEAM_2_ON_LEFT
+    assign_to AT_TEAM 2 -1 0
+  endif
+}
+
+create_land /* Player Right 1 */
+{
+  terrain_type LAYER_A
+  land_percent 1
+  base_size 14
+  clumping_factor 15
+  border_fuzziness 15
+  zone 2
+  other_zone_avoidance_distance 14
+
+  if ORIENTATION_A
+    land_position 35 92
+  elseif ORIENTATION_B
+    land_position 92 35
+  endif
+
+  if TEAM_1_ON_LEFT
+    assign_to AT_TEAM 2 -1 0
+  elseif TEAM_2_ON_LEFT
+    assign_to AT_TEAM 1 -1 0
+  endif
+}
+
+create_land /* Player Right 2 */
+{
+  terrain_type LAYER_A
+  land_percent 1
+  base_size 14
+  clumping_factor 15
+  border_fuzziness 15
+  zone 2
+  other_zone_avoidance_distance 14
+
+  if ORIENTATION_A
+    land_position 50 92
+  elseif ORIENTATION_B
+    land_position 92 50
+  endif
+
+  if TEAM_1_ON_LEFT
+    assign_to AT_TEAM 2 -1 0
+  elseif TEAM_2_ON_LEFT
+    assign_to AT_TEAM 1 -1 0
+  endif
+}
+
+create_land /* Player Right 3 */
+{
+  terrain_type LAYER_A
+  land_percent 1
+  base_size 14
+  clumping_factor 15
+  border_fuzziness 15
+  zone 2
+  other_zone_avoidance_distance 14
+
+  if ORIENTATION_A
+    land_position 65 92
+  elseif ORIENTATION_B
+    land_position 92 65
+  endif
+
+  if TEAM_1_ON_LEFT
+    assign_to AT_TEAM 2 -1 0
+  elseif TEAM_2_ON_LEFT
+    assign_to AT_TEAM 1 -1 0
+  endif
+}
+endif
 
 create_land
 { 
@@ -68,7 +229,7 @@ endif
   land_percent			     100
   base_size                          12
   border_fuzziness                   15
-  zone                               2
+  zone                               3
   other_zone_avoidance_distance      14
   clumping_factor                    15
   if TINY_MAP
@@ -655,7 +816,7 @@ terrain_mask 1
 #define GNR_STARTINGSTONE
 
 #define GNR_STARTGOLD54M
-#define GNR_STARTSTONE43M
+#define GNR_STARTSTONE4M
 
 #define GNR_SPLITSTARTGOLDS
 #define GNR_STARTGS_1WBLOCK
